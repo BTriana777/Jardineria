@@ -61,4 +61,8 @@ public class Matera {
         return precio;
     }
 
+    @Override
+    public String toString() {
+        return "Nombre de la Mata: " + nombre + "\nMaterial: " + material + "\nTamaño: " + tamano + "\nCantidad: " + cantidad + "\nPrecio por Unidad: " + precio;
+    }
 }

@@ -60,4 +60,9 @@ public class Abono {
     public double getPrecio() {
         return precio;
     }
+
+    @Override
+    public String toString() {
+        return "Nombre de la Mata: " + nombre + "\nDescripcion: " + descripcion + "\nUtilidad: " + utilidad + "\nCantidad: " + cantidad + "\nPrecio por Unidad: " + precio ;
+    }
 }

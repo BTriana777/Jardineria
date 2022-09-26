@@ -5,11 +5,11 @@ public class Planta {
     public int id;
     public String nombre;
     public String cuidados;
-    public String tipoMata;
+    public int tipoMata;
     public int cantidad;
     public double precio;
 
-    public Planta(String nombre, String cuidados, String tipoMata, int cantidad, double precio) {
+    public Planta(String nombre, String cuidados, int tipoMata, int cantidad, double precio) {
         this.nombre = nombre;
         this.cuidados = cuidados;
         this.tipoMata = tipoMata;
@@ -25,7 +25,7 @@ public class Planta {
         this.cuidados = cuidados;
     }
 
-    public void setTipoMata(String tipoMata) {
+    public void setTipoMata(int tipoMata) {
         this.tipoMata = tipoMata;
     }
 
@@ -49,7 +49,7 @@ public class Planta {
         return cuidados;
     }
 
-    public String getTipoMata() {
+    public int getTipoMata() {
         return tipoMata;
     }
 
@@ -59,5 +59,10 @@ public class Planta {
 
     public double getPrecio() {
         return precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre de la Mata: " + nombre + "\nCuidados: " + cuidados + "\nTipo de mata: " + tipoMata + "\nCantidad: " + cantidad + "\nPrecio por Unidad: " + precio;
     }
 }

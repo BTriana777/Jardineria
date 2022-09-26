@@ -53,6 +53,7 @@ public class Jardineria {
     public int menu() {
         boolean x = true;
         int option = 0;
+        
         while (x) {
             System.out.println("\n===== MENU DE USUARIO =====");
             System.out.println("\nSELECCIONE UNA OPCION: ");
@@ -218,7 +219,15 @@ public class Jardineria {
             case 1:
                 buscarPlanta();
                 break;
-
+            case 2:
+                buscarMatera();
+                break;
+            case 3:
+                buscarAbono();
+                break;
+            case 4:
+                buscarAccesorios();
+                break;
             default:
                 break;
         }
@@ -236,10 +245,55 @@ public class Jardineria {
                 return;
             }
         }
-        imprimirModificarArticulo(index);
+        imprimirModificarArticulo(vectorPlanta, index, 0);
     }
 
-    public void eliminarArticulo(ArrayList vector, int index) {
+    public void buscarMatera() {
+        System.out.println("INGRESE EL NOMBRE DEL ARTICULO MATERA");
+        String nombre = entrada.next();
+        int index = 0;
+        System.out.println("\nBUSCANDO...\n");
+        for (int i = 0; i < vectorMatera.size(); i++) {
+            if (nombre.toLowerCase() == vectorMatera.get(i).getNombre().toLowerCase()) {
+                index = i;
+                System.out.println("\nARTICULO ENCONTRADO\n");
+                return;
+            }
+        }
+        imprimirModificarArticulo(vectorMatera, index, 1);
+    }
+
+    public void buscarAbono() {
+        System.out.println("INGRESE EL NOMBRE DEL ARTICULO ABONO");
+        String nombre = entrada.next();
+        int index = 0;
+        System.out.println("\nBUSCANDO...\n");
+        for (int i = 0; i < vectorAbono.size(); i++) {
+            if (nombre.toLowerCase() == vectorAbono.get(i).getNombre().toLowerCase()) {
+                index = i;
+                System.out.println("\nARTICULO ENCONTRADO\n");
+                return;
+            }
+        }
+        imprimirModificarArticulo(vectorAbono, index, 2);
+    }
+
+    public void buscarAccesorios() {
+        System.out.println("INGRESE EL NOMBRE DEL ARTICULO ACCESORIOS");
+        String nombre = entrada.next();
+        int index = 0;
+        System.out.println("\nBUSCANDO...\n");
+        for (int i = 0; i < vectorAccesorios.size(); i++) {
+            if (nombre.toLowerCase() == vectorAccesorios.get(i).getNombre().toLowerCase()) {
+                index = i;
+                System.out.println("\nARTICULO ENCONTRADO\n");
+                return;
+            }
+        }
+        imprimirModificarArticulo(vectorAccesorios, index, 3);
+    }
+
+    public void eliminarArticulo(ArrayList vector, int index, int articulo) {
         boolean x = true;
         int option = 0;
         while (x) {
@@ -264,13 +318,13 @@ public class Jardineria {
                 System.out.println("======================\n");
                 break;
             case 2:
-                imprimirModificarArticulo(index);
+                imprimirModificarArticulo(vector, index, articulo);
             default:
                 break;
         }
     }
 
-    public void imprimirModificarArticulo(int index) {
+    public void imprimirModificarArticulo(ArrayList vector, int index, int articulo) {
         boolean x = true;
         int option = 0;
         while (x) {
@@ -289,13 +343,51 @@ public class Jardineria {
         }
         switch (option) {
             case 1:
-                System.out.println(vectorPlanta.get(index));
+                System.out.println(vector.get(index));
                 break;
             case 2:
-                modificaPlanta(index);
+                ejecutarModificar(index, articulo);
                 break;
             case 3:
-                eliminarArticulo(vectorPlanta, index);
+                ejecutarEliminar(index, articulo);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ejecutarEliminar(int index, int articulo) {
+        switch (articulo) {
+            case 0:
+                eliminarArticulo(vectorPlanta, index, articulo);
+                break;
+            case 1:
+                eliminarArticulo(vectorMatera, index, articulo);
+                break;
+            case 2:
+                eliminarArticulo(vectorAbono, index, articulo);
+                break;
+            case 3:
+                eliminarArticulo(vectorAccesorios, index, articulo);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ejecutarModificar(int index, int articulo) {
+        switch (articulo) {
+            case 0:
+                modificaPlanta(index);
+                break;
+            case 1:
+                modificaMatera(index);
+                break;
+            case 2:
+                modificaAbono(index);
+                break;
+            case 3:
+                modificaAccesorios(index);
                 break;
             default:
                 break;
@@ -341,6 +433,141 @@ public class Jardineria {
             case 5:
                 System.out.println("\nINGRESA EL PRECIO DE LA MATA");
                 vectorPlanta.get(index).setPrecio(entrada.nextDouble());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void modificaMatera(int index) {
+        boolean x = true;
+        int option = 0;
+        while (x) {
+            System.out.println("\nQUE DESEA MODIFICAR?");
+            System.out.println("1: NOMBRE");
+            System.out.println("2: MATERIAL");
+            System.out.println("3: TAMAÑO");
+            System.out.println("4: CANTIDAD");
+            System.out.println("5: PRECIO\n");
+            option = entrada.nextInt();
+            if (option <= 0 || option > 5) {
+                System.out.println("\nOPCION INCORRECTA\n");
+                x = true;
+            } else {
+                x = false;
+            }
+        }
+        switch (option) {
+            case 1:
+                System.out.println("\nINGRESA EL NOMBRE DE LA MATERA");
+                vectorMatera.get(index).setNombre(entrada.next());
+                break;
+            case 2:
+                System.out.println("\nINGRESA EL MATERIAL DE LA MATERA");
+                vectorMatera.get(index).setMaterial(entrada.next());
+                break;
+            case 3:
+                System.out.println("\nINGRESA EL TAMAÑO DE LA MATERA");
+                vectorMatera.get(index).setTamano(entrada.next());
+                break;
+            case 4:
+                System.out.println("\nINGRESA LA CANTIDAD DE LAS MATERAS");
+                vectorMatera.get(index).setCantidad(entrada.nextInt());
+                break;
+
+            case 5:
+                System.out.println("\nINGRESA EL PRECIO DE LAS MATERAS");
+                vectorMatera.get(index).setPrecio(entrada.nextDouble());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void modificaAbono(int index) {
+        boolean x = true;
+        int option = 0;
+        while (x) {
+            System.out.println("\nQUE DESEA MODIFICAR?");
+            System.out.println("1: NOMBRE");
+            System.out.println("2: DESCRIPCION");
+            System.out.println("3: UTILIDAD");
+            System.out.println("4: CANTIDAD");
+            System.out.println("5: PRECIO\n");
+            option = entrada.nextInt();
+            if (option <= 0 || option > 5) {
+                System.out.println("\nOPCION INCORRECTA\n");
+                x = true;
+            } else {
+                x = false;
+            }
+        }
+        switch (option) {
+            case 1:
+                System.out.println("\nINGRESA EL NOMBRE DEL ABONO");
+                vectorAbono.get(index).setNombre(entrada.next());
+                break;
+            case 2:
+                System.out.println("\nINGRESA LA DESCRIPCION DEL ABONO");
+                vectorAbono.get(index).setDescripcion(entrada.next());
+                break;
+            case 3:
+                System.out.println("\nINGRESA LA UTILIDAD DEL ABONO");
+                vectorAbono.get(index).setUtilidad(entrada.next());
+                break;
+            case 4:
+                System.out.println("\nINGRESA LA CANTIDAD DEL ABONOS");
+                vectorAbono.get(index).setCantidad(entrada.nextInt());
+                break;
+
+            case 5:
+                System.out.println("\nINGRESA EL PRECIO DEL ABONO");
+                vectorAbono.get(index).setPrecio(entrada.nextDouble());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void modificaAccesorios(int index) {
+        boolean x = true;
+        int option = 0;
+        while (x) {
+            System.out.println("\nQUE DESEA MODIFICAR?");
+            System.out.println("1: NOMBRE");
+            System.out.println("2: DESCRIPCION");
+            System.out.println("3: UTILIDAD");
+            System.out.println("4: CANTIDAD");
+            System.out.println("5: PRECIO\n");
+            option = entrada.nextInt();
+            if (option <= 0 || option > 5) {
+                System.out.println("\nOPCION INCORRECTA\n");
+                x = true;
+            } else {
+                x = false;
+            }
+        }
+        switch (option) {
+            case 1:
+                System.out.println("\nINGRESA EL NOMBRE DEL ABONO");
+                vectorAccesorios.get(index).setNombre(entrada.next());
+                break;
+            case 2:
+                System.out.println("\nINGRESA LA DESCRIPCION DEL ABONO");
+                vectorAccesorios.get(index).setDescripcion(entrada.next());
+                break;
+            case 3:
+                System.out.println("\nINGRESA LA UTILIDAD DEL ABONO");
+                vectorAccesorios.get(index).setUtilidad(entrada.next());
+                break;
+            case 4:
+                System.out.println("\nINGRESA LA CANTIDAD DEL ABONOS");
+                vectorAccesorios.get(index).setCantidad(entrada.nextInt());
+                break;
+
+            case 5:
+                System.out.println("\nINGRESA EL PRECIO DEL ABONO");
+                vectorAccesorios.get(index).setPrecio(entrada.nextDouble());
                 break;
             default:
                 break;
